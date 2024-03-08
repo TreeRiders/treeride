@@ -16,5 +16,6 @@
     --color-outline: #C6D0F599;
     --color-outline-100: #C6D0F51A;
     --color-outline-200: #C6D0F533;
+    --radius: 0.5rem;
   }
 }

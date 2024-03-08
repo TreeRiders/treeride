@@ -12,14 +12,19 @@
   }
 }
 
-html, body, #root {
+html,
+body,
+#root {
   @apply h-full flex flex-1 flex-col;
 }
 
-*, *::after, *::before {
+*,
+*::after,
+*::before {
   box-sizing: border-box;
 }
 
 body {
   user-select: none;
+  overflow: hidden;
 }

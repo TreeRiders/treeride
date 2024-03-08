@@ -21,7 +21,7 @@ const createWindow = (): BrowserWindow => {
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
-      preload: join(__dirname, '../../preload/index.mjs'),
+      preload: join(__dirname, '../preload/index.mjs'),
       sandbox: false,
     },
   })
@@ -30,8 +30,7 @@ const createWindow = (): BrowserWindow => {
     mainWindow.show()
   })
 
-  mainWindow.on('blur', () => {
-  })
+  mainWindow.on('blur', () => {})
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
     shell.openExternal(details.url)
@@ -41,7 +40,9 @@ const createWindow = (): BrowserWindow => {
   if (is.dev && process.env.ELECTRON_RENDERER_URL) {
     mainWindow.loadURL(process.env.ELECTRON_RENDERER_URL)
   }
-  else { mainWindow.loadFile(join(__dirname, '../../renderer/index.html')) }
+  else {
+    mainWindow.loadFile(join(__dirname, '../../renderer/index.html'))
+  }
 
   return mainWindow
 }

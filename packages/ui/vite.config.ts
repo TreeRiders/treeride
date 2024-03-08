@@ -5,7 +5,9 @@ import dts from 'vite-plugin-dts'
 
 const config = defineConfig({
   plugins: [
-    react(),
+    react(
+      { jsxRuntime: 'classic' },
+    ),
     dts({ insertTypesEntry: true }),
   ],
   build: {

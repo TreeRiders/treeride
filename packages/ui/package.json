@@ -10,15 +10,8 @@
       "import": "./dist/treeride-ui.es.js",
       "require": "./dist/treeride-ui.umd.js"
     },
-    "./package.json": "./package.json",
-    "./tailwind-config": {
-      "import": "./tailwind.config.js",
-      "require": "./tailwind.config.js"
-    },
-    "./theme": {
-      "import": "./dist/globals.css",
-      "require": "./dist/globals.css"
-    }
+    "./dist/style.css": "./dist/style.css",
+    "./tailwind.config.js": "./tailwind.config.js"
   },
   "main": "dist/treeride-ui.umd.js",
   "module": "dist/treeride-ui.es.js",
@@ -31,6 +24,8 @@
     "build": "vite build"
   },
   "dependencies": {
+    "@radix-ui/react-dropdown-menu": "^2.0.6",
+    "@radix-ui/react-scroll-area": "^1.0.5",
     "@radix-ui/react-slot": "^1.0.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
