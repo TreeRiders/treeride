@@ -28,3 +28,11 @@ body {
   user-select: none;
   overflow: hidden;
 }
+
+.draggable {
+  -webkit-app-region: drag;
+}
+
+.non-draggable {
+  -webkit-app-region: no-drag;
+}

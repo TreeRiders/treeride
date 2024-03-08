@@ -7,7 +7,7 @@ interface RootLayoutFooterFooterProps {
 const RootLayoutFooter: FC<RootLayoutFooterFooterProps> = ({ settings }) => {
   return (
     <div
-      className="border-t border-solid p-2"
+      className="border-t border-solid p-2 draggable"
     >
       {settings}
     </div>
