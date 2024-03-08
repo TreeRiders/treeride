@@ -1,13 +1,13 @@
 import type { FC, ReactNode } from 'react'
 
-interface RootLayoutFooterFooterProps {
+interface RootLayoutFooterProps {
   settings: ReactNode
 }
 
-const RootLayoutFooter: FC<RootLayoutFooterFooterProps> = ({ settings }) => {
+const RootLayoutFooter: FC<RootLayoutFooterProps> = ({ settings }) => {
   return (
     <div
-      className="border-t border-solid p-2 draggable"
+      className="h-10 px-2 flex-shrink-0 border-t border-solid draggable flex items-center backdrop-opacity-60"
     >
       {settings}
     </div>

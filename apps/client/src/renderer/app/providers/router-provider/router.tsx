@@ -6,6 +6,7 @@ import { helloRoute } from '@pages/hello'
 import { SettingsDropdown } from '@features/settings'
 import { themeSettingsRoute } from '@pages/theme-settings'
 import { settingsRoute } from '@pages/settings'
+import { RootLayoutHeader } from '@shared/ui/root-layout/header'
 
 const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter(
   [
@@ -17,6 +18,7 @@ const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter(
               settings={<SettingsDropdown />}
             />
           )}
+          header={<RootLayoutHeader />}
         />
       ),
       children: [

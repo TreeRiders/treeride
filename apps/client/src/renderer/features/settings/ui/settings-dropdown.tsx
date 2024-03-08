@@ -10,6 +10,7 @@ import {
 import { useNavigate } from 'react-router-dom'
 import { pathKeys } from '@shared/lib/react-router'
 import { useMainer } from '@shared/mainer'
+import { Settings2Icon } from 'lucide-react'
 
 const SettingsDropdown: FC = () => {
   const navigate = useNavigate()
@@ -35,10 +36,12 @@ const SettingsDropdown: FC = () => {
         className="non-draggable"
       >
         <Button
-          size="action"
+          size="action-icon"
           variant="action"
         >
-          Settings
+          <Settings2Icon
+            className="size-5"
+          />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
