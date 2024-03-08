@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-background-primary: #30344666;
+    --color-background-secondary: #30344666;
+    --color-foreground: #C6D0F5;
+    --color-foreground-100: #C6D0F51A;
+    --color-foreground-400: #C6D0F566;
+    --color-foreground-600: #C6D0F599;
+    --color-selection: #737994;
+    --color-selection-100: #7379941A;
+    --color-blink: #838BA7;
+    --color-outline: #C6D0F599;
+    --color-outline-100: #C6D0F51A;
+    --color-outline-200: #C6D0F533;
+  }
+}

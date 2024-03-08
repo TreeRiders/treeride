@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-outline-100;
+  }
+  body {
+    background-color: var(--color-background-tinted);
+    @apply bg-window text-foreground;
+  }
+}
+
+html, body, #root {
+  @apply h-full flex flex-1 flex-col;
+}
+
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
+body {
+  user-select: none;
+}

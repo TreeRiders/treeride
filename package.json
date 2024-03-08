@@ -1,0 +1,33 @@
+{
+  "name": "@treeride/monorepo",
+  "type": "module",
+  "version": "0.0.0",
+  "description": "Open-Source multi-platform productivity boost tool",
+  "author": "TreeRiders",
+  "license": "ISC",
+  "keywords": [],
+  "scripts": {
+    "dev": "pnpm --filter @treeride/client run dev",
+    "build:ui": "pnpm --filter @treeride/ui run build",
+    "test:unit": "pnpm --filter @treeride/client run test:unit",
+    "test:unit:coverage": "pnpm --filter @treeride/client run test:unit:coverage",
+    "lint": "eslint . --fix",
+    "typecheck": "pnpm --filter @treeride/client run typecheck",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^2.6.4",
+    "@treeride/client": "workspace:^",
+    "@types/node": "^18.19.9",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "@typescript-eslint/parser": "^7.1.1",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "eslint-plugin-unused-imports": "^3.1.0",
+    "husky": "^9.0.11",
+    "typescript": "^5.3.3"
+  }
+}
