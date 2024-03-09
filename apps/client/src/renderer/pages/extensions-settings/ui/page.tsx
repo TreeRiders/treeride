@@ -3,7 +3,7 @@ import type { FC } from 'react'
 const ExtensionsSettingsPage: FC = () => {
   return (
     <div>
-      Hello
+      Extensions settings
     </div>
   )
 }

@@ -7,7 +7,6 @@ const settingsRoute: RouteObject = {
   element: (
     <SettingsPage />
   ),
-  index: false,
 }
 
 export { settingsRoute }

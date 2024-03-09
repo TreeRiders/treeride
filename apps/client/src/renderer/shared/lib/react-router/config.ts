@@ -4,7 +4,8 @@ const pathKeys = {
   init: () => pathKeys.root.concat('init/'),
   hello: () => pathKeys.root.concat('hello/'),
   settings: () => pathKeys.root.concat('settings/'),
-  themeSettings: () => pathKeys.settings().concat('theme/'),
+  appearanceSettings: () => pathKeys.settings().concat('appearance/'),
+  systemSettings: () => pathKeys.settings().concat('system/'),
   extensionsSettings: () => pathKeys.settings().concat('extensions/'),
 } as const
 

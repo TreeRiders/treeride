@@ -2,11 +2,12 @@ import { Navigate, createBrowserRouter } from 'react-router-dom'
 import { mainRoute } from '@pages/main'
 import { pathKeys } from '@shared/lib/react-router'
 import { helloRoute } from '@pages/hello'
-import { themeSettingsRoute } from '@pages/theme-settings'
 import { settingsRoute } from '@pages/settings'
 import { extensionsSettingsRoute } from '@pages/extensions-settings'
 import { RootLayout } from '@widgets/root-layout'
 import { initRoute } from '@pages/init'
+import { appearanceSettingsRoute } from '@pages/appearance-settings'
+import { systemSettingsRoute } from '@pages/system-settings'
 
 const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter(
   [
@@ -19,7 +20,7 @@ const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter(
           index: true,
           element: (
             <Navigate
-              to={pathKeys.hello()}
+              to={pathKeys.main()}
             />
           ),
         },
@@ -30,7 +31,16 @@ const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter(
           ...settingsRoute,
           index: false,
           children: [
-            themeSettingsRoute,
+            {
+              index: true,
+              element: (
+                <Navigate
+                  to={pathKeys.appearanceSettings()}
+                />
+              ),
+            },
+            appearanceSettingsRoute,
+            systemSettingsRoute,
             extensionsSettingsRoute,
           ],
         },
