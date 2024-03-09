@@ -1,11 +1,13 @@
 import { Navigate, createBrowserRouter } from 'react-router-dom'
 import { mainRoute } from '@pages/main'
 import { pathKeys } from '@shared/lib/react-router'
-import { RootLayout, RootLayoutFooter } from '@shared/ui/root-layout'
+import { RootLayout } from '@shared/ui/root-layout'
 import { helloRoute } from '@pages/hello'
 import { SettingsDropdown } from '@features/settings'
 import { themeSettingsRoute } from '@pages/theme-settings'
 import { settingsRoute } from '@pages/settings'
+import { extensionsSettingsRoute } from '@pages/extensions-settings'
+import { RootLayoutFooter } from '@shared/ui/root-layout/footer'
 import { RootLayoutHeader } from '@shared/ui/root-layout/header'
 
 const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter(
@@ -18,7 +20,9 @@ const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter(
               settings={<SettingsDropdown />}
             />
           )}
-          header={<RootLayoutHeader />}
+          header={(
+            <RootLayoutHeader />
+          )}
         />
       ),
       children: [
@@ -37,6 +41,7 @@ const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter(
           index: false,
           children: [
             themeSettingsRoute,
+            extensionsSettingsRoute,
           ],
         },
       ],

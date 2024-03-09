@@ -13,9 +13,13 @@ const RootLayout: FC<RootLayoutProps> = ({ header, footer }) => {
     >
       {header}
       <div
-        className="flex flex-col flex-1 p-2"
+        className="flex flex-col flex-1 min-h-0"
       >
-        <Outlet />
+        <div
+          className="flex flex-1 min-h-0 p-2"
+        >
+          <Outlet />
+        </div>
       </div>
       {footer}
     </div>

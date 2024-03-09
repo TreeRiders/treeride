@@ -11,7 +11,7 @@ const HelloPage: FC = () => {
 
   return (
     <div
-      className="h-full flex flex-col gap-4 items-center justify-center"
+      className="flex-1 flex flex-col items-center justify-center gap-6"
     >
       <div
         className="text-5xl"
