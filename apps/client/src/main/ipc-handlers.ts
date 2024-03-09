@@ -1,14 +1,16 @@
-import type { ReadConfigResult } from '@root/config/types'
 import { app, ipcMain } from 'electron'
+import { readConfig } from './config/config'
 
-interface SetIPCHandlersPayload {
-  config: ReadConfigResult
-}
-
-const setIPCHandlers = (payload: SetIPCHandlersPayload) => {
-  const { config } = payload
+const setIPCHandlers = () => {
+  let config = readConfig()
 
   ipcMain.handle('get-config', () => {
+    return config
+  })
+
+  ipcMain.handle('reload-config', () => {
+    config = readConfig()
+
     return config
   })
 

@@ -11,6 +11,7 @@ const themeSchema = z.object({
     selection: z.string(),
     blink: z.string(),
     outline: z.string(),
+    warning: z.string().optional(),
   }),
 })
 

@@ -1,58 +1,53 @@
-class SettingsError extends Error {
-  code = 'SETTINGS_ERROR'
-
-  constructor(message: string) {
-    super(message)
-    this.name = 'SettingsError'
-  }
+interface InitSettingsError {
+  type: 'initSettingsError'
+  message: string
 }
 
-class ExtensionError extends Error {
-  code = 'EXTENSION_ERROR'
+interface InitExtensionError {
+  type: 'initExtensionError'
   extension: string
-
-  constructor(extension: string, message: string) {
-    super(message)
-    this.extension = extension
-    this.name = 'ExtensionError'
-  }
+  message: string
 }
 
-class ExtensionThemeError extends Error {
-  code = 'EXTENSION_THEME_ERROR'
+interface InitExtensionPartError {
+  type: 'initExtensionPartError'
   extension: string
-  theme: string
+  part: string
+  message: string
+}
 
-  constructor(extension: string, theme: string, message: string) {
-    super(message)
-    this.extension = extension
-    this.theme = theme
-    this.name = 'ExtensionThemeError'
+interface CreateInitErrorPayload {
+  extension?: string
+  part?: string
+  message: string
+}
+
+type InitError = InitSettingsError | InitExtensionError | InitExtensionPartError
+
+const getInitError = (payload: CreateInitErrorPayload): InitError => {
+  const { message, extension, part } = payload
+
+  if (!extension) {
+    return {
+      message,
+      type: 'initSettingsError',
+    } as InitSettingsError
   }
-}
 
-class ExtensionCommandError extends Error {
-  code = 'EXTENSION_COMMAND_ERROR'
-  extension: string
-  command: string
-
-  constructor(extension: string, command: string, message: string) {
-    super(message)
-    this.extension = extension
-    this.command = command
-    this.name = 'ExtensionCommandError'
+  if (!part) {
+    return {
+      extension,
+      message,
+      type: 'initExtensionError',
+    } as InitExtensionError
   }
+
+  return {
+    extension,
+    message,
+    part,
+    type: 'initExtensionPartError',
+  } as InitExtensionPartError
 }
 
-type InitError = SettingsError | ExtensionError | ExtensionThemeError | ExtensionCommandError
-
-type InitErrorCode = InitError['code']
-
-export {
-  SettingsError,
-  ExtensionError,
-  ExtensionThemeError,
-  ExtensionCommandError,
-  type InitError,
-  type InitErrorCode,
-}
+export { getInitError, type InitError }

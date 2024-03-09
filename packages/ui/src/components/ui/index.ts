@@ -1,3 +1,5 @@
 export * from './button'
 export * from './scroll-area'
 export * from './dropdown-menu'
+export * from './input'
+export * from './tooltip'

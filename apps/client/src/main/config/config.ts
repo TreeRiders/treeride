@@ -1,13 +1,8 @@
 import { existsSync, mkdirSync, readdirSync } from 'node:fs'
 import { resolve } from 'node:path'
-import type {
-  InitError,
-} from '@root/config/errors'
 import {
-  ExtensionCommandError,
-  ExtensionError,
-  ExtensionThemeError,
-  SettingsError,
+  type InitError,
+  getInitError,
 } from '@root/config/errors'
 import type { Extension, ReadConfigResult } from '@root/config/types'
 import type {
@@ -52,7 +47,9 @@ const readConfig = (): ReadConfigResult => {
     settings = readConfigFile(settingsFilePath, settingsSchema)
   }
   catch (error) {
-    errors.push(new SettingsError((error as Error).message))
+    errors.push(getInitError({
+      message: (error as Error).message,
+    }))
   }
 
   const extensions: Extension[] = readdirSync(extensionsDirPath)
@@ -69,7 +66,10 @@ const readConfig = (): ReadConfigResult => {
         extension = readConfigFile(extensionFilePath, extensionSchema)
       }
       catch (error) {
-        errors.push(new ExtensionError(extensionDirName, (error as Error).message))
+        errors.push(getInitError({
+          extension: extensionDirName,
+          message: (error as Error).message,
+        }))
         return null as unknown as Extension
       }
 
@@ -82,7 +82,11 @@ const readConfig = (): ReadConfigResult => {
               return readConfigFile(themePath, themeSchema)
             }
             catch (error) {
-              errors.push(new ExtensionThemeError(extension.name, themeFile, (error as Error).message))
+              errors.push(getInitError({
+                extension: extensionDirName,
+                part: themeFile,
+                message: (error as Error).message,
+              }))
               return null as unknown as ThemeSchema
             }
           })
@@ -99,7 +103,11 @@ const readConfig = (): ReadConfigResult => {
               return readConfigFile(commandFilePath, commandSchema)
             }
             catch (error) {
-              errors.push(new ExtensionCommandError(extension.name, commandDirName, (error as Error).message))
+              errors.push(getInitError({
+                extension: extensionDirName,
+                part: commandDirName,
+                message: (error as Error).message,
+              }))
               return null as unknown as CommandSchema
             }
           })

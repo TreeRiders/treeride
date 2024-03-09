@@ -5,6 +5,10 @@ interface IPCHandlers {
     value: void
     result: ReadConfigResult
   }
+  'reload-config': {
+    value: void
+    result: void
+  }
 }
 
 export { type IPCHandlers }

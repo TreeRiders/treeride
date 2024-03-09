@@ -33,7 +33,6 @@ const SettingsDropdown: FC = () => {
     <DropdownMenu>
       <DropdownMenuTrigger
         asChild
-        className="non-draggable"
       >
         <Button
           size="action-icon"

@@ -1,17 +1,14 @@
-import type { FC, ReactNode } from 'react'
+import type { FC } from 'react'
 import { Outlet } from 'react-router-dom'
+import { RootLayoutHeader } from './header'
+import { RootLayoutFooter } from './footer'
 
-interface RootLayoutProps {
-  header: ReactNode
-  footer: ReactNode
-}
-
-const RootLayout: FC<RootLayoutProps> = ({ header, footer }) => {
+const RootLayout: FC = () => {
   return (
     <div
       className="h-screen flex flex-col"
     >
-      {header}
+      <RootLayoutHeader />
       <div
         className="flex flex-col flex-1 min-h-0"
       >
@@ -21,7 +18,7 @@ const RootLayout: FC<RootLayoutProps> = ({ header, footer }) => {
           <Outlet />
         </div>
       </div>
-      {footer}
+      <RootLayoutFooter />
     </div>
   )
 }

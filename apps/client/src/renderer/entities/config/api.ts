@@ -3,4 +3,9 @@ const getConfig = async () => {
   return response
 }
 
-export { getConfig }
+const reloadConfig = async () => {
+  const response = await window.api.doInvoke('reload-config')
+  return response
+}
+
+export { getConfig, reloadConfig }
