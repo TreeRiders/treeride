@@ -13,7 +13,8 @@
     "test:unit:coverage": "pnpm --filter @treeride/client run test:unit:coverage",
     "lint": "eslint . --fix",
     "typecheck": "pnpm --filter @treeride/client run typecheck",
-    "prepare": "husky"
+    "prepare": "husky",
+    "ui:add": "pnpm --filter @treeride/ui add-component"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.6.4",

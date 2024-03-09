@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, readdirSync } from 'node:fs'
+import { existsSync, lstatSync, mkdirSync, readdirSync } from 'node:fs'
 import { resolve } from 'node:path'
 import {
   type InitError,
@@ -95,7 +95,9 @@ const readConfig = (): ReadConfigResult => {
 
       let commands: CommandSchema[] = []
       if (existsSync(extensionCommandsPath)) {
-        commands = readdirSync(extensionCommandsPath)
+        commands = readdirSync(extensionCommandsPath).filter(commandDirName => (
+          lstatSync(resolve(extensionCommandsPath, commandDirName)).isDirectory()
+        ))
           .map((commandDirName) => {
             const commandDirPath = resolve(extensionCommandsPath, commandDirName)
             const commandFilePath = resolve(commandDirPath, 'command.yml')
