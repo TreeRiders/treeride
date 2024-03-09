@@ -37,6 +37,9 @@ module.exports = {
           100: 'var(--color-outline-100)',
           200: 'var(--color-outline-200)',
         },
+        warning: {
+          DEFAULT: 'var(--color-warning)',
+        },
       },
       backgroundImage: {
         window: 'linear-gradient(to bottom, var(--color-background-primary) 0%, var(--color-background-secondary) 70%)',
@@ -61,6 +64,9 @@ module.exports = {
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
     },
+  },
+  corePlugins: {
+    preflight: false,
   },
   plugins: [require('tailwindcss-animate')],
 }

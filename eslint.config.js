@@ -27,6 +27,7 @@ const config = antfu(
     },
     react: {
       overrides: {
+        'react/prop-types': 'off',
         'react/jsx-filename-extension': [1, { extensions: ['.tsx', '.mdx'] }],
         'react/destructuring-assignment': ['error', 'always', { ignoreClassFields: true }],
         'react/jsx-first-prop-new-line': ['error', 'always'],

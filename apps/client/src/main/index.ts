@@ -3,6 +3,7 @@ import { electronApp, optimizer } from '@electron-toolkit/utils'
 import { BrowserWindow, app } from 'electron'
 import { createWindow as createMainWindow } from './windows/main'
 import { createTray } from './tray'
+import { setIPCHandlers } from './ipc-handlers'
 
 app.whenReady().then(() => {
   electronApp.setAppUserModelId('com.treeride.app')
@@ -25,4 +26,5 @@ app.whenReady().then(() => {
 
   createMainWindow()
   createTray()
+  setIPCHandlers()
 })
