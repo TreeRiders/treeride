@@ -3,9 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  * {
-    @apply border-outline-100;
-  }
   body {
     background-color: var(--color-background-tinted);
     @apply bg-window text-foreground;

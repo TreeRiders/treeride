@@ -3,13 +3,14 @@ import process from 'node:process'
 import { BrowserWindow, shell } from 'electron'
 import icon from '@resources/icon.png?asset'
 import { is } from '@electron-toolkit/utils'
+import { windowSizes } from '@root/window'
 
 const createWindow = (): BrowserWindow => {
   const mainWindow = new BrowserWindow({
     title: 'TreeRide',
     frame: false,
-    width: 800,
-    height: 500,
+    width: windowSizes.default.width,
+    height: windowSizes.default.height,
     skipTaskbar: true,
     resizable: false,
     maximizable: false,
