@@ -1,2 +1,2 @@
-export * from './route'
-export * from './ui'
+export { mainRoute } from './route/route'
+export { MainPage } from './ui/page'

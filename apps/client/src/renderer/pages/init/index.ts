@@ -1,2 +1,2 @@
-export * from './ui'
-export * from './route'
+export { initRoute } from './route/route'
+export { InitPage } from './ui/page'

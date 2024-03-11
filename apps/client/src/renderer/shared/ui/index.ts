@@ -1,1 +1,1 @@
-export * from './wide-pane'
+export { WidePane } from './wide-pane'

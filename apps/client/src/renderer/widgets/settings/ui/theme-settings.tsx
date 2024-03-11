@@ -1,32 +1,19 @@
-import { useTheme } from '@app/providers/theme-provider'
-import { AppearanceSelector, ThemeSwitcher } from '@features/settings'
-import { darkTheme, lightTheme } from '@shared/theme'
+import { AppearanceSelector } from '@features/theme/select-appearance'
+import { ThemeSelector } from '@features/theme/select-theme'
 import type { FC } from 'react'
 
-const ThemeSettings: FC = () => {
-  const { lightThemes, darkThemes, currentDarkTheme, currentLightTheme, appearance } = useTheme()
-
+export const ThemeSettings: FC = () => {
   return (
     <div
       className="flex flex-col gap-6 flex-1"
     >
-      <ThemeSwitcher
-        currentTheme={currentLightTheme}
-        defaultTheme={lightTheme}
-        themes={lightThemes}
-        title="Light Themes"
+      <ThemeSelector
+        appearance="light"
       />
-      <ThemeSwitcher
-        currentTheme={currentDarkTheme}
-        defaultTheme={darkTheme}
-        themes={darkThemes}
-        title="Dark Themes"
+      <ThemeSelector
+        appearance="dark"
       />
-      <AppearanceSelector
-        currentAppearance={appearance}
-      />
+      <AppearanceSelector />
     </div>
   )
 }
-
-export { ThemeSettings }

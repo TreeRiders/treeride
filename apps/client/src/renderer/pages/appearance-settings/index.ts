@@ -1,2 +1,2 @@
-export * from './ui'
-export * from './route'
+export { appearanceSettingsRoute } from './route/route'
+export { AppearanceSettingsPage } from './ui/page'

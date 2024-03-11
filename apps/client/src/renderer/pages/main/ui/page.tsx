@@ -1,8 +1,9 @@
-import { useConfig } from '@app/providers/config-provider'
+import { useConfig } from '@entities/config'
+import { Search } from '@features/dynamic-layout/command-search'
 import type { CommandSchema } from '@root/schemas'
-import { pathKeys } from '@shared/lib/react-router'
-import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList, CommandSeparator } from '@treeride/ui'
-import { DynamicLayout } from '@widgets/root-layout'
+import { pathKeys } from '@shared/lib/router'
+import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList } from '@treeride/ui'
+import { DynamicLayoutBaseSet, HeaderSearch } from '@widgets/dynamic-layout'
 import { useMemo } from 'react'
 import type { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -23,12 +24,12 @@ const MainPage: FC = () => {
   const handleOpenSettings = () => {
     navigate(pathKeys.settings())
   }
-
   return (
     <Command>
-      <DynamicLayout.HeaderSearch
-        placeholder="Search for apps and commands..."
-      />
+      <DynamicLayoutBaseSet />
+      <HeaderSearch>
+        <Search />
+      </HeaderSearch>
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup
