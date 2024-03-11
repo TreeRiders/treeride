@@ -1,19 +1,19 @@
 import { Navigate, createBrowserRouter } from 'react-router-dom'
 import { mainRoute } from '@pages/main'
-import { pathKeys } from '@shared/lib/react-router'
 import { helloRoute } from '@pages/hello'
 import { settingsRoute } from '@pages/settings'
 import { extensionsSettingsRoute } from '@pages/extensions-settings'
-import { RootLayout } from '@widgets/root-layout'
 import { initRoute } from '@pages/init'
 import { appearanceSettingsRoute } from '@pages/appearance-settings'
 import { systemSettingsRoute } from '@pages/system-settings'
+import { pathKeys } from '@shared/lib/router'
+import { DynamicLayout } from '@entities/dynamic-layout'
 
 const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter(
   [
     {
       element: (
-        <RootLayout />
+        <DynamicLayout />
       ),
       children: [
         {

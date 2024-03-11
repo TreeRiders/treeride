@@ -65,6 +65,7 @@ const config = antfu(
       'react-refresh/only-export-components': 'off',
     },
   },
+
 )
 
 export default config

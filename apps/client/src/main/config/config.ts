@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, readdirSync } from 'node:fs'
+import { existsSync, lstatSync, mkdirSync, readdirSync } from 'node:fs'
 import { resolve } from 'node:path'
 import {
   type InitError,
@@ -61,7 +61,6 @@ const readConfig = (): ReadConfigResult => {
 
       let extension: ExtensionSchema = null as unknown as ExtensionSchema
 
-      let themes: ThemeSchema[] = []
       try {
         extension = readConfigFile(extensionFilePath, extensionSchema)
       }
@@ -73,29 +72,34 @@ const readConfig = (): ReadConfigResult => {
         return null as unknown as Extension
       }
 
+      let themes: ThemeSchema[] = []
       if (existsSync(extensionThemesPath)) {
-        themes = readdirSync(extensionThemesPath)
-          .map((themeFile) => {
-            const themePath = resolve(extensionThemesPath, themeFile)
-
+        themes = readdirSync(extensionThemesPath).filter(themeDirName => (
+          lstatSync(resolve(extensionThemesPath, themeDirName)).isDirectory()
+        ))
+          .map((themeDirName) => {
+            const themeDirPath = resolve(extensionThemesPath, themeDirName)
+            const themeFilePath = resolve(themeDirPath, 'theme.yml')
             try {
-              return readConfigFile(themePath, themeSchema)
+              return readConfigFile(themeFilePath, themeSchema)
             }
             catch (error) {
               errors.push(getInitError({
                 extension: extensionDirName,
-                part: themeFile,
+                part: themeDirName,
                 message: (error as Error).message,
               }))
               return null as unknown as ThemeSchema
             }
           })
-          .filter(theme => !!theme)
+          .filter(command => !!command)
       }
 
       let commands: CommandSchema[] = []
       if (existsSync(extensionCommandsPath)) {
-        commands = readdirSync(extensionCommandsPath)
+        commands = readdirSync(extensionCommandsPath).filter(commandDirName => (
+          lstatSync(resolve(extensionCommandsPath, commandDirName)).isDirectory()
+        ))
           .map((commandDirName) => {
             const commandDirPath = resolve(extensionCommandsPath, commandDirName)
             const commandFilePath = resolve(commandDirPath, 'command.yml')

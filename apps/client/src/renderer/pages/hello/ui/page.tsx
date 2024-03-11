@@ -1,3 +1,4 @@
+import { DynamicLayoutBaseSet } from '@widgets/dynamic-layout'
 import type { FC } from 'react'
 
 const HelloPage: FC = () => {
@@ -11,6 +12,7 @@ const HelloPage: FC = () => {
         TreeRide
       </div>
       <div>Open-Source multi-platform productivity boost tool</div>
+      <DynamicLayoutBaseSet />
     </div>
   )
 }

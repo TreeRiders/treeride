@@ -10,8 +10,8 @@ const themeSchema = z.object({
     foreground: z.string(),
     selection: z.string(),
     blink: z.string(),
-    outline: z.string(),
-    warning: z.string().optional(),
+    warning: z.string().optional().default('#EF9F76'),
+    error: z.string().optional().default('#E78284'),
   }),
 })
 

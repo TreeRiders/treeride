@@ -1,2 +1,2 @@
-export * from './route'
-export * from './ui'
+export { systemSettingsRoute } from './route/route'
+export { SystemSettingsPage } from './ui/page'

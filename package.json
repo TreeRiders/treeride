@@ -13,16 +13,21 @@
     "test:unit:coverage": "pnpm --filter @treeride/client run test:unit:coverage",
     "lint": "eslint . --fix",
     "typecheck": "pnpm --filter @treeride/client run typecheck",
-    "prepare": "husky"
+    "prepare": "husky",
+    "ui:add": "pnpm --filter @treeride/ui add-component"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.6.4",
+    "@eslint/eslintrc": "^3.0.2",
+    "@feature-sliced/eslint-config": "0.1.0-beta.6",
     "@treeride/client": "workspace:^",
     "@types/node": "^18.19.9",
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",
     "@typescript-eslint/parser": "^7.1.1",
     "eslint": "^8.56.0",
+    "eslint-plugin-boundaries": "^4.2.0",
+    "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",

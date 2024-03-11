@@ -15,9 +15,10 @@ module.exports = {
     extend: {
       colors: {
         background: {
+          DEFAULT: 'var(--color-background)',
           primary: 'var(--color-background-primary)',
           secondary: 'var(--color-background-secondary)',
-          tinted: 'rgba(128, 128, 128, 0.2)',
+          tinted: 'var(--color-background-tinted)',
         },
         foreground: {
           DEFAULT: 'var(--color-foreground)',
@@ -32,10 +33,10 @@ module.exports = {
         blink: {
           DEFAULT: 'var(--color-blink)',
         },
-        outline: {
-          DEFAULT: 'var(--color-outline)',
-          100: 'var(--color-outline-100)',
-          200: 'var(--color-outline-200)',
+        border: {
+          DEFAULT: 'var(--color-border-100)',
+          100: 'var(--color-border-100)',
+          200: 'var(--color-border-200)',
         },
         warning: {
           DEFAULT: 'var(--color-warning)',

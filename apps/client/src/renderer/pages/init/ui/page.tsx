@@ -1,20 +1,13 @@
-import { useConfig } from '@app/providers/config-provider'
-import { DynamicLayout } from '@widgets/root-layout'
-import { RefreshCwIcon } from 'lucide-react'
+import { useConfig } from '@entities/config'
+import { DynamicLayoutBaseSet } from '@widgets/dynamic-layout'
 import type { FC } from 'react'
 
 const InitPage: FC = () => {
-  const { config: { extensions, errors }, reload } = useConfig()
+  const { config: { extensions, errors } } = useConfig()
 
   return (
     <>
-      <DynamicLayout.FooterAction
-        description="Reload the app to reinitialize the extensions."
-        icon={<RefreshCwIcon />}
-        title="Reload"
-        onClick={reload}
-      />
-
+      <DynamicLayoutBaseSet />
       <div
         className="flex flex-col gap-6"
       >
