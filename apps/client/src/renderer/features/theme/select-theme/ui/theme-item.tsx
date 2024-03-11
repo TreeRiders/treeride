@@ -13,7 +13,7 @@ export const ThemeItem: FC<ThemeItemProps> = ({ theme, isSelected, onClick }) =>
 
   return (
     <div
-      className="h-[120px] w-[200px] rounded-xl overflow-hidden flex items-center justify-center text-xl font-light"
+      className="h-[120px] w-[200px] rounded-xl overflow-hidden flex items-center justify-center text-xl font-light cursor-pointer"
       style={{
         backgroundColor: 'var(--color-background-tinted)',
         backgroundImage: `linear-gradient(to bottom, ${colors.backgroundPrimary} 0%, ${colors.backgroundSecondary} 70%)`,

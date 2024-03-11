@@ -38,9 +38,11 @@ const MainPage: FC = () => {
           {items.map((item) => {
             return (
               <CommandItem
+                className="flex items-center justify-between"
                 key={item.name}
               >
-                {item.title}
+                <span>{item.title}</span>
+                <span>Command</span>
               </CommandItem>
             )
           })}
