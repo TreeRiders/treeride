@@ -1,9 +1,13 @@
-import type { ReadConfigResult } from '@root/config/types'
+import type { ChangeSettingsPayload, ReadConfigResult } from '@root/config/types'
 import type { windowSizes } from '@root/window'
 
 interface IPCHandlers {
   'get-config': {
     value: void
+    result: ReadConfigResult
+  }
+  'change-settings': {
+    value: ChangeSettingsPayload
     result: ReadConfigResult
   }
   'reload-config': {

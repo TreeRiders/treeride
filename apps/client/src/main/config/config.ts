@@ -19,8 +19,9 @@ import {
 } from '@root/schemas'
 import { readConfigFile, saveConfigFile } from '@root/utils/schema'
 import { app } from 'electron'
+import objectPath from 'object-path'
 
-const readConfig = (): ReadConfigResult => {
+export const readConfig = (): ReadConfigResult => {
   let isFirstRun = false
   const errors: InitError[] = []
 
@@ -133,7 +134,11 @@ const readConfig = (): ReadConfigResult => {
     extensions,
     errors,
     isFirstRun,
+    settingsFilePath,
   }
 }
 
-export { readConfig }
+export const writeSettingChanges = (config: ReadConfigResult, path: string, value: unknown): void => {
+  objectPath.set(config.settings, path, value)
+  saveConfigFile(config.settingsFilePath, settingsSchema, config.settings)
+}

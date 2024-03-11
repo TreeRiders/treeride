@@ -1,6 +1,7 @@
 import { BrowserWindow, app, ipcMain } from 'electron'
 import { windowSizes } from '@root/window'
-import { readConfig } from './config/config'
+import type { ChangeSettingsPayload } from '@root/config/types'
+import { readConfig, writeSettingChanges } from './config/config'
 
 const setIPCHandlers = () => {
   let config = readConfig()
@@ -11,7 +12,11 @@ const setIPCHandlers = () => {
 
   ipcMain.handle('reload-config', () => {
     config = readConfig()
+    return config
+  })
 
+  ipcMain.handle('change-settings', (_, newSettings: ChangeSettingsPayload) => {
+    writeSettingChanges(config, newSettings.path, newSettings.value)
     return config
   })
 

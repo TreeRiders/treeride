@@ -9,14 +9,14 @@ export const DynamicLayout: FC<DynamicLayoutProps> = ({ children }) => {
       className="h-screen flex flex-col"
     >
       <div
-        className="h-14 px-2 flex-shrink-0 border-b border-solid flex items-center"
+        className="h-14 px-2 flex-shrink-0 border-b border-solid flex items-center draggable"
       >
         <div
-          className="flex items-center"
+          className="flex items-center non-draggable"
           id="header-left-actions"
         />
         <div
-          className="flex items-center flex-1"
+          className="flex items-center flex-1 non-draggable"
           id="header-search"
         />
       </div>

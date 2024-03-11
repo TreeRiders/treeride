@@ -1,9 +1,13 @@
+import { useConfig } from '@entities/config'
 import { useTheme } from '@entities/theme'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@treeride/ui'
 import type { FC } from 'react'
 
 const AppearanceSelector: FC = () => {
-  const { appearance } = useTheme()
+  const { appearance, useSystemAppearance } = useTheme()
+
+  const { changeSettings } = useConfig()
+
   return (
     <div
       className="flex flex-1 items-center justify-center flex-col gap-6"
@@ -14,8 +18,8 @@ const AppearanceSelector: FC = () => {
         Select appearance
       </div>
       <Select
-        value={appearance}
-        onValueChange={() => null}
+        value={useSystemAppearance ? 'system' : appearance}
+        onValueChange={value => changeSettings('appearance.appearance', value)}
       >
         <SelectTrigger
           className="w-[200px]"

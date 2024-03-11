@@ -7,10 +7,16 @@ interface Extension extends ExtensionSchema {
 }
 
 interface ReadConfigResult {
+  settingsFilePath: string
   settings: SettingsSchema
   extensions: Extension[]
   errors: InitError[]
   isFirstRun?: boolean
+}
+
+export interface ChangeSettingsPayload {
+  path: string
+  value: unknown
 }
 
 export { type Extension, type ReadConfigResult }

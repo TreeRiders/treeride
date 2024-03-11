@@ -52,8 +52,9 @@ const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
       currentDarkTheme,
       currentLightTheme,
       currentTheme,
+      useSystemAppearance: config.settings.appearance.appearance === 'system',
     }
-  ), [currentDarkTheme, currentLightTheme, currentTheme, darkThemes, getAppearance, lightThemes])
+  ), [config.settings.appearance.appearance, currentDarkTheme, currentLightTheme, currentTheme, darkThemes, getAppearance, lightThemes])
 
   return (
     <ThemeContext.Provider
