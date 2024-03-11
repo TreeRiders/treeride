@@ -1,6 +1,7 @@
 import { defaultDarkTheme, defaultLightTheme, useTheme } from '@entities/theme'
 import { Carousel, CarouselContent, CarouselItem, Section, SectionContent, SectionTitle } from '@treeride/ui'
 import type { FC } from 'react'
+import { useConfig } from '@entities/config'
 import { ThemeItem } from './theme-item'
 
 interface ThemeSelectorProps {
@@ -10,6 +11,8 @@ interface ThemeSelectorProps {
 const ThemeSelector: FC<ThemeSelectorProps> = ({ appearance }) => {
   const { darkThemes, lightThemes, currentDarkTheme, currentLightTheme } = useTheme()
 
+  const { changeSettings } = useConfig()
+
   const currentThemes = appearance === 'light' ? lightThemes : darkThemes
 
   const currentTheme = appearance === 'light' ? currentLightTheme : currentDarkTheme
@@ -17,6 +20,8 @@ const ThemeSelector: FC<ThemeSelectorProps> = ({ appearance }) => {
   const defaultTheme = appearance === 'light' ? defaultLightTheme : defaultDarkTheme
 
   const appearanceTitle = appearance === 'light' ? 'Light' : 'Dark'
+
+  const themeKey = appearance === 'light' ? 'lightTheme' : 'darkTheme'
 
   return (
     <Section>
@@ -43,7 +48,9 @@ const ThemeSelector: FC<ThemeSelectorProps> = ({ appearance }) => {
                 key={theme.name}
               >
                 <ThemeItem
+                  isSelected={theme.name === currentTheme.name}
                   theme={theme}
+                  onClick={() => changeSettings(`appearance.${themeKey}`, theme.name)}
                 />
               </CarouselItem>
             ))}

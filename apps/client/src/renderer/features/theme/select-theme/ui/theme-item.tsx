@@ -4,9 +4,11 @@ import type { FC } from 'react'
 
 interface ThemeItemProps {
   theme: ThemeSchema
+  isSelected: boolean
+  onClick: () => void
 }
 
-export const ThemeItem: FC<ThemeItemProps> = ({ theme }) => {
+export const ThemeItem: FC<ThemeItemProps> = ({ theme, isSelected, onClick }) => {
   const [colors] = themeToCSS(theme)
 
   return (
@@ -16,8 +18,9 @@ export const ThemeItem: FC<ThemeItemProps> = ({ theme }) => {
         backgroundColor: 'var(--color-background-tinted)',
         backgroundImage: `linear-gradient(to bottom, ${colors.backgroundPrimary} 0%, ${colors.backgroundSecondary} 70%)`,
         color: colors.foreground,
-        border: `4px solid ${colors.border200}`,
+        border: !isSelected ? `none` : `4px solid ${colors.selection}`,
       }}
+      onClick={onClick}
     >
       <div
         style={{ color: theme.colors.foreground }}

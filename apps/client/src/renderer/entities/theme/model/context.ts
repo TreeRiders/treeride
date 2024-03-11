@@ -5,6 +5,7 @@ export interface ThemeContextValue {
   darkThemes: ThemeSchema[]
   lightThemes: ThemeSchema[]
   appearance: 'light' | 'dark'
+  useSystemAppearance: boolean
   currentLightTheme: ThemeSchema
   currentDarkTheme: ThemeSchema
   currentTheme: ThemeSchema
