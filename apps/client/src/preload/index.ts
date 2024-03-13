@@ -1,14 +1,25 @@
 import process from 'node:process'
 import { contextBridge, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
+import type { TypedIPCRenderer } from '@root/ipc'
 import type { CustomAPI } from './api'
 
-const doInvoke: CustomAPI['doInvoke'] = (channel, data) => {
-  return ipcRenderer.invoke(channel, data)
+const typedIPCRenderer = ipcRenderer as unknown as TypedIPCRenderer
+
+const send: CustomAPI['send'] = (event, payload) => {
+  return typedIPCRenderer.invoke(event, payload)
+}
+
+const receive: CustomAPI['receive'] = (event, listener) => {
+  ipcRenderer.on(event, listener)
+  return () => {
+    ipcRenderer.removeListener(event, listener)
+  }
 }
 
 const api: CustomAPI = {
-  doInvoke,
+  send,
+  receive,
 }
 
 if (process.contextIsolated) {

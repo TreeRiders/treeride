@@ -3,7 +3,9 @@ import { DynamicLayoutBaseSet } from '@widgets/dynamic-layout'
 import type { FC } from 'react'
 
 const InitPage: FC = () => {
-  const { config: { extensions, errors } } = useConfig()
+  const { settings, extensions } = useConfig()
+
+  const errors = [...settings.errors, ...extensions.errors]
 
   return (
     <>
@@ -22,7 +24,7 @@ const InitPage: FC = () => {
           <div
             className="flex flex-col gap-4"
           >
-            {extensions.map(extension => (
+            {extensions.extensions.map(extension => (
               <div
                 key={extension.name}
               >

@@ -9,17 +9,17 @@ import type { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const MainPage: FC = () => {
-  const config = useConfig()
+  const { extensions } = useConfig()
 
   const navigate = useNavigate()
 
   const items = useMemo((): CommandSchema[] => {
     const commands: CommandSchema[] = []
-    config.config.extensions.forEach((extension) => {
+    extensions.extensions.forEach((extension) => {
       commands.push(...extension.commands)
     })
     return commands
-  }, [config.config.extensions])
+  }, [extensions.extensions])
 
   const handleOpenSettings = () => {
     navigate(pathKeys.settings())

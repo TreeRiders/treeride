@@ -4,8 +4,16 @@ import { BrowserWindow, app } from 'electron'
 import { createWindow as createMainWindow } from './windows/main'
 import { createTray } from './tray'
 import { setIPCHandlers } from './ipc-handlers'
+import { Settings } from './config/settings'
+import { Extensions } from './config/extensions'
 
 app.whenReady().then(() => {
+  const settings = new Settings()
+  const extensions = new Extensions()
+
+  settings.read()
+  extensions.read()
+
   electronApp.setAppUserModelId('com.treeride.app')
 
   app.on('browser-window-created', (_, window) => {
@@ -26,5 +34,9 @@ app.whenReady().then(() => {
 
   createMainWindow()
   createTray()
-  setIPCHandlers()
+  setIPCHandlers({ settings, extensions })
+
+  // settings.on('settings', (payload) => {
+  //   typedIPCMain.send('new-settings')
+  // })
 })

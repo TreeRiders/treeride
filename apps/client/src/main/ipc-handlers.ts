@@ -1,26 +1,43 @@
-import { BrowserWindow, app, ipcMain } from 'electron'
+import { BrowserWindow, app } from 'electron'
 import { windowSizes } from '@root/window'
-import type { ChangeSettingsPayload } from '@root/config/types'
-import { readConfig, writeSettingChanges } from './config/config'
+import type { GetExtensionsResult, GetSettingsResult } from '@root/config/types'
+import type { Settings } from './config/settings'
+import type { Extensions } from './config/extensions'
+import { typedIPCMain } from './ipc'
 
-const setIPCHandlers = () => {
-  let config = readConfig()
+interface SetIPCHandlersPayload {
+  settings: Settings
+  extensions: Extensions
+}
 
-  ipcMain.handle('get-config', () => {
-    return config
+const setIPCHandlers = (payload: SetIPCHandlersPayload) => {
+  typedIPCMain.handle('get-extensions', () => {
+    return {
+      extensions: payload.extensions.extensions,
+      errors: payload.extensions.errors,
+    } as GetExtensionsResult
   })
 
-  ipcMain.handle('reload-config', () => {
-    config = readConfig()
-    return config
+  typedIPCMain.handle('get-settings', () => {
+    return {
+      settings: payload.settings.settings,
+      errors: payload.settings.errors,
+    } as GetSettingsResult
   })
 
-  ipcMain.handle('change-settings', (_, newSettings: ChangeSettingsPayload) => {
-    writeSettingChanges(config, newSettings.path, newSettings.value)
-    return config
+  typedIPCMain.handle('reload-extensions', () => {
+    payload.extensions.read()
   })
 
-  ipcMain.handle('change-window-size', (_, size: keyof typeof windowSizes) => {
+  typedIPCMain.handle('reload-settings', () => {
+    payload.settings.read()
+  })
+
+  typedIPCMain.handle('change-settings', (_, newSettings) => {
+    payload.settings.write(newSettings)
+  })
+
+  typedIPCMain.handle('change-window-size', (_, size: keyof typeof windowSizes) => {
     const window = BrowserWindow.getFocusedWindow()
 
     if (window) {
@@ -32,7 +49,7 @@ const setIPCHandlers = () => {
     }
   })
 
-  ipcMain.on('exit-app', () => {
+  typedIPCMain.handle('exit-app', () => {
     app.exit(0)
   })
 }

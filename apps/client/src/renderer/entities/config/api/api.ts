@@ -1,12 +1,37 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { getConfig, reloadConfig } from './actions'
+import { changeSettings, getExtensions, getSettings, reloadExtensions, reloadSettings } from './actions'
 
-export const useGetConfigQuery = () => useQuery({
-  queryKey: ['config'],
-  queryFn: getConfig,
-})
+export const useGetSettings = () => {
+  return useQuery({
+    queryKey: ['settings'],
+    queryFn: getSettings,
+  })
+}
 
-export const useReloadConfigMutation = () => useMutation({
-  mutationKey: ['config'],
-  mutationFn: reloadConfig,
-})
+export const useGetExtensions = () => {
+  return useQuery({
+    queryKey: ['extensions'],
+    queryFn: getExtensions,
+  })
+}
+
+export const useReloadSettings = () => {
+  return useMutation({
+    mutationKey: ['settings'],
+    mutationFn: reloadSettings,
+  })
+}
+
+export const useReloadExtensions = () => {
+  return useMutation({
+    mutationKey: ['extensions'],
+    mutationFn: reloadExtensions,
+  })
+}
+
+export const useChangeSettings = () => {
+  return useMutation({
+    mutationKey: ['settings'],
+    mutationFn: changeSettings,
+  })
+}

@@ -8,9 +8,11 @@ import { useNavigate } from 'react-router-dom'
 const InitErrorsIndicator: FC = () => {
   const navigate = useNavigate()
 
-  const { config: { errors } } = useConfig()
+  const { settings, extensions } = useConfig()
 
   const handleGoToInit = () => navigate(pathKeys.init())
+
+  const errors = [...settings.errors, ...extensions.errors]
 
   if (!errors.length) {
     return null

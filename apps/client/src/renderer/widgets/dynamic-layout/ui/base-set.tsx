@@ -10,7 +10,14 @@ import { FooterRightActions } from './footer-right-actions'
 import { HeaderActions } from './header-actions'
 
 export const DynamicLayoutBaseSet: FC = () => {
-  const { reload, config: { errors } } = useConfig()
+  const { extensions, settings, reloadExtensions, reloadSettings } = useConfig()
+
+  const errors = [...settings.errors, ...extensions.errors]
+
+  const handleReload = () => {
+    reloadExtensions()
+    reloadSettings()
+  }
 
   return (
     <>
@@ -27,7 +34,7 @@ export const DynamicLayoutBaseSet: FC = () => {
             description="Reload the app to reinitialize the extensions."
             icon={<RefreshCwIcon />}
             title="Reload"
-            onClick={reload}
+            onClick={handleReload}
           />
         )}
       </FooterRightActions>

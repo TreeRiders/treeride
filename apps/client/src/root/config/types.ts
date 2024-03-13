@@ -6,17 +6,19 @@ interface Extension extends ExtensionSchema {
   commands: CommandSchema[]
 }
 
-interface ReadConfigResult {
-  settingsFilePath: string
-  settings: SettingsSchema
-  extensions: Extension[]
-  errors: InitError[]
-  isFirstRun?: boolean
-}
-
 export interface ChangeSettingsPayload {
   path: string
   value: unknown
 }
 
-export { type Extension, type ReadConfigResult }
+export interface GetSettingsResult {
+  settings: SettingsSchema
+  errors: InitError[]
+}
+
+export interface GetExtensionsResult {
+  extensions: Extension[]
+  errors: InitError[]
+}
+
+export { type Extension }
