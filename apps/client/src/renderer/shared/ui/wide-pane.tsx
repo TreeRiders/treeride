@@ -5,10 +5,10 @@ type WidePaneProps = PropsWithChildren
 
 export const WidePane: FC<WidePaneProps> = ({ children }) => {
   useLayoutEffect(() => {
-    window.api.send('change-window-size', 'wide')
+    window.api.invoke.changeWindowSize('wide')
 
     return () => {
-      window.api.send('change-window-size', 'default')
+      window.api.invoke.changeWindowSize('default')
     }
   }, [])
 

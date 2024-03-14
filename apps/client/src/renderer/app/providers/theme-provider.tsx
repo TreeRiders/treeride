@@ -11,34 +11,34 @@ const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
   const { settings, extensions } = useConfig()
 
   const darkThemes = useMemo(() => {
-    return extensions.extensions.reduce<ThemeSchema[]>((acc, extension) => {
+    return extensions.reduce<ThemeSchema[]>((acc, extension) => {
       const themes = extension.themes.filter(theme => theme.appearance === 'dark')
       return [...acc, ...themes]
     }, [])
-  }, [extensions.extensions])
+  }, [extensions])
 
   const lightThemes = useMemo(() => {
-    return extensions.extensions.reduce<ThemeSchema[]>((acc, extension) => {
+    return extensions.reduce<ThemeSchema[]>((acc, extension) => {
       const themes = extension.themes.filter(theme => theme.appearance === 'light')
       return [...acc, ...themes]
     }, [])
-  }, [extensions.extensions])
+  }, [extensions])
 
   const currentDarkTheme = useMemo(() => {
-    return darkThemes.find(theme => theme.name === settings.settings.appearance.darkTheme) ?? defaultDarkTheme
-  }, [settings.settings.appearance.darkTheme, darkThemes])
+    return darkThemes.find(theme => theme.name === settings.appearance.darkTheme) ?? defaultDarkTheme
+  }, [settings.appearance.darkTheme, darkThemes])
 
   const currentLightTheme = useMemo(() => {
-    return lightThemes.find(theme => theme.name === settings.settings.appearance.lightTheme) ?? defaultLightTheme
-  }, [settings.settings.appearance.lightTheme, lightThemes])
+    return lightThemes.find(theme => theme.name === settings.appearance.lightTheme) ?? defaultLightTheme
+  }, [settings.appearance.lightTheme, lightThemes])
 
   const getAppearance = useCallback(() => {
-    if (settings.settings.appearance.appearance === 'system') {
+    if (settings.appearance.appearance === 'system') {
       return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
     }
 
-    return settings.settings.appearance.appearance
-  }, [settings.settings.appearance.appearance])
+    return settings.appearance.appearance
+  }, [settings.appearance.appearance])
 
   const currentTheme = useMemo(() => {
     return getAppearance() === 'dark' ? currentDarkTheme : currentLightTheme
@@ -52,9 +52,9 @@ const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
       currentDarkTheme,
       currentLightTheme,
       currentTheme,
-      useSystemAppearance: settings.settings.appearance.appearance === 'system',
+      useSystemAppearance: settings.appearance.appearance === 'system',
     }
-  ), [settings.settings.appearance.appearance, currentDarkTheme, currentLightTheme, currentTheme, darkThemes, getAppearance, lightThemes])
+  ), [settings.appearance.appearance, currentDarkTheme, currentLightTheme, currentTheme, darkThemes, getAppearance, lightThemes])
 
   return (
     <ThemeContext.Provider

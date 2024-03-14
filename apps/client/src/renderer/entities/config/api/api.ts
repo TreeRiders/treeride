@@ -1,37 +1,16 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
-import { changeSettings, getExtensions, getSettings, reloadExtensions, reloadSettings } from './actions'
+import type { GetConfigResult } from '@root/config/types'
+import type { ChangeSettingsPayload } from '@root/settings/types'
 
-export const useGetSettings = () => {
-  return useQuery({
-    queryKey: ['settings'],
-    queryFn: getSettings,
-  })
+export const getConfig = async (): Promise<GetConfigResult> => {
+  const result = await window.api.invoke.getConfig()
+  return result
 }
 
-export const useGetExtensions = () => {
-  return useQuery({
-    queryKey: ['extensions'],
-    queryFn: getExtensions,
-  })
+export const changeSettings = async (payload: ChangeSettingsPayload) => {
+  const result = await window.api.invoke.changeSettings(payload)
+  return result
 }
 
-export const useReloadSettings = () => {
-  return useMutation({
-    mutationKey: ['settings'],
-    mutationFn: reloadSettings,
-  })
-}
-
-export const useReloadExtensions = () => {
-  return useMutation({
-    mutationKey: ['extensions'],
-    mutationFn: reloadExtensions,
-  })
-}
-
-export const useChangeSettings = () => {
-  return useMutation({
-    mutationKey: ['settings'],
-    mutationFn: changeSettings,
-  })
+export const reloadConfig = async () => {
+  await window.api.invoke.reloadConfig()
 }

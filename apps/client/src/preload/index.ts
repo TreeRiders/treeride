@@ -1,31 +1,15 @@
 import process from 'node:process'
-import { contextBridge, ipcRenderer } from 'electron'
+import { contextBridge } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
-import type { TypedIPCRenderer } from '@root/ipc'
-import type { CustomAPI } from './api'
+import { exposeApiToGlobalWindow } from '../main/ipcs/ipcs'
 
-const typedIPCRenderer = ipcRenderer as unknown as TypedIPCRenderer
-
-const send: CustomAPI['send'] = (event, payload) => {
-  return typedIPCRenderer.invoke(event, payload)
-}
-
-const receive: CustomAPI['receive'] = (event, listener) => {
-  ipcRenderer.on(event, listener)
-  return () => {
-    ipcRenderer.removeListener(event, listener)
-  }
-}
-
-const api: CustomAPI = {
-  send,
-  receive,
-}
+exposeApiToGlobalWindow({
+  exposeAll: true,
+})
 
 if (process.contextIsolated) {
   try {
     contextBridge.exposeInMainWorld('electron', electronAPI)
-    contextBridge.exposeInMainWorld('api', api)
   }
   catch (error) {
     console.error(error)
@@ -34,6 +18,4 @@ if (process.contextIsolated) {
 else {
   // @ts-expect-error (define in dts)
   window.electron = electronAPI
-  // @ts-expect-error (define in dts)
-  window.api = api
 }

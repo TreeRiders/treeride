@@ -74,6 +74,9 @@ importers:
       '@treeride/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      interprocess:
+        specifier: ^0.2.6
+        version: 0.2.6(electron@28.2.6)
       lucide-react:
         specifier: ^0.350.0
         version: 0.350.0(react@18.2.0)
@@ -5480,6 +5483,14 @@ packages:
       hasown: 2.0.1
       side-channel: 1.0.6
     dev: true
+
+  /interprocess@0.2.6(electron@28.2.6):
+    resolution: {integrity: sha512-UHLP+eLimHyztnk475EikFQHiwKgq6hBllsIAHybHSPsk5auZuxQJZfx55cfT8Mqy1TGeyw6KJYLjvF+NmJfqA==}
+    peerDependencies:
+      electron: '>=12.0'
+    dependencies:
+      electron: 28.2.6
+    dev: false
 
   /invariant@2.2.4:
     resolution: {integrity: sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==}

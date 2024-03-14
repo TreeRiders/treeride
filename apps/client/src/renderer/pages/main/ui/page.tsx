@@ -15,11 +15,11 @@ const MainPage: FC = () => {
 
   const items = useMemo((): CommandSchema[] => {
     const commands: CommandSchema[] = []
-    extensions.extensions.forEach((extension) => {
+    extensions.forEach((extension) => {
       commands.push(...extension.commands)
     })
     return commands
-  }, [extensions.extensions])
+  }, [extensions])
 
   const handleOpenSettings = () => {
     navigate(pathKeys.settings())

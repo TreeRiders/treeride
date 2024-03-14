@@ -1,12 +1,14 @@
-import type { GetExtensionsResult, GetSettingsResult } from '@root/config/types'
+import type { InitError } from '@root/config/errors'
+import type { Extension } from '@root/extensions/types'
+import type { SettingsSchema } from '@root/schemas'
 import { createContext, useContext } from 'react'
 
 export interface ConfigContextValue {
-  settings: GetSettingsResult
-  extensions: GetExtensionsResult
+  settings: SettingsSchema
+  extensions: Extension[]
+  errors: InitError[]
   changeSettings: (path: string, value: unknown) => void
-  reloadSettings: () => void
-  reloadExtensions: () => void
+  reload: () => void
 }
 
 export const ConfigContext = createContext<ConfigContextValue>({} as ConfigContextValue)

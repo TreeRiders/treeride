@@ -1,4 +1,3 @@
-import EventEmitter from 'node:events'
 import { resolve } from 'node:path'
 import { existsSync, lstatSync, mkdirSync, readdirSync } from 'node:fs'
 import { commandSchema, extensionSchema, themeSchema } from '@root/schemas'
@@ -6,10 +5,10 @@ import type { CommandSchema, ExtensionSchema, ThemeSchema } from '@root/schemas'
 import { app } from 'electron'
 import { readConfigFile } from '@root/utils/schema'
 import { type InitError, getInitError } from '@root/config/errors'
-import type { Extension } from '@root/config/types'
+import type { Extension } from '@root/extensions/types'
 
-export class Extensions extends EventEmitter {
-  #extensions: ExtensionSchema[]
+export class Extensions {
+  #extensions: Extension[]
   #extensionsPath: string
   errors: InitError[]
 
@@ -18,7 +17,6 @@ export class Extensions extends EventEmitter {
   }
 
   constructor() {
-    super()
     this.#extensions = []
     this.#extensionsPath = resolve(app.getPath('home'), '.config', 'treeride', 'extensions')
     this.errors = []
@@ -111,6 +109,5 @@ export class Extensions extends EventEmitter {
       .filter(extension => !!extension)
 
     this.#extensions = extensions
-    this.emit('extensions', extensions)
   }
 }

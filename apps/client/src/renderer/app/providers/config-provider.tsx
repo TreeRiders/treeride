@@ -1,56 +1,47 @@
 import type { FC, PropsWithChildren } from 'react'
-import { useCallback, useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 import type { ConfigContextValue } from '@entities/config'
-import { ConfigContext, useChangeSettings, useGetExtensions, useGetSettings, useReloadExtensions, useReloadSettings } from '@entities/config'
-import type { GetExtensionsResult, GetSettingsResult } from '@root/config/types'
-import { useQueryClient } from '@tanstack/react-query'
+import { ConfigContext, changeSettings, getConfig, reloadConfig } from '@entities/config'
+import { settingsSchema } from '@root/schemas'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 type ConfigProviderProps = PropsWithChildren
 
 const ConfigProvider: FC<ConfigProviderProps> = ({ children }) => {
-  const client = useQueryClient()
+  const queryClient = useQueryClient()
 
-  const { data: settings } = useGetSettings()
+  const { data } = useQuery({
+    queryKey: ['config'],
+    queryFn: getConfig,
+  })
 
-  const { mutate: reloadSettings } = useReloadSettings()
+  const { mutate: change } = useMutation({
+    mutationFn: changeSettings,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['config'] })
+    },
+  })
 
-  const { data: extensions } = useGetExtensions()
-
-  const { mutate: reloadExtensions } = useReloadExtensions()
-
-  const { mutate: change } = useChangeSettings()
+  const { mutate: reload } = useMutation({
+    mutationFn: reloadConfig,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['config'] })
+    },
+  })
 
   const value = useMemo<ConfigContextValue>(() => ({
-    settings: settings as GetSettingsResult,
-    extensions: extensions as GetExtensionsResult,
-    reloadSettings,
-    reloadExtensions,
+    settings: data?.settings ?? settingsSchema.parse({}),
+    extensions: data?.extensions ?? [],
+    errors: data?.errors ?? [],
+    reload,
     changeSettings: (path, value) => change({ path, value }),
-  }), [change, extensions, reloadExtensions, reloadSettings, settings])
-
-  const invalidateSettings = useCallback(() => {
-    client.invalidateQueries({ queryKey: ['settings'] })
-  }, [client])
-
-  const invalidateExtensions = useCallback(() => {
-    client.invalidateQueries({ queryKey: ['extensions'] })
-  }, [client])
-
-  useEffect(() => {
-    const newSettingsReceiver = window.api.receive('new-settings', invalidateSettings)
-    const newExtensionsReceiver = window.api.receive('new-extensions', invalidateExtensions)
-
-    return () => {
-      newSettingsReceiver()
-      newExtensionsReceiver()
-    }
-  }, [invalidateExtensions, invalidateSettings])
+  }), [change, data?.errors, data?.extensions, data?.settings, reload])
 
   return (
     <ConfigContext.Provider
       value={value}
     >
-      {!!settings?.settings && !!extensions?.extensions && children}
+      {!!data && children }
     </ConfigContext.Provider>
   )
 }
