@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react'
-import type { ThemeSchema } from '@root/schemas'
+import type { ThemeSchema } from '@treeride/schemas'
 
 export interface ThemeContextValue {
   darkThemes: ThemeSchema[]

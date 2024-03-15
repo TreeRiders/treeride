@@ -1,4 +1,4 @@
-import type { ThemeSchema } from '@root/schemas'
+import type { ThemeSchema } from '@treeride/schemas'
 
 export interface ThemeColors {
   background: string

@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react'
 import type { FC, PropsWithChildren } from 'react'
-import type { ThemeSchema } from '@root/schemas'
+import type { ThemeSchema } from '@treeride/schemas'
 import { useConfig } from '@entities/config'
 import type { ThemeContextValue } from '@entities/theme'
 import { ThemeContext, defaultDarkTheme, defaultLightTheme } from '@entities/theme'

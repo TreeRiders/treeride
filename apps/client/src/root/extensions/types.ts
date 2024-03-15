@@ -1,4 +1,4 @@
-import type { CommandSchema, ExtensionSchema, ThemeSchema } from '@root/schemas'
+import type { CommandSchema, ExtensionSchema, ThemeSchema } from '@treeride/schemas'
 
 export interface Extension extends ExtensionSchema {
   themes: ThemeSchema[]

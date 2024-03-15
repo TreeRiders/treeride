@@ -1,5 +1,5 @@
 import { themeToCSS } from '@entities/theme'
-import type { ThemeSchema } from '@root/schemas'
+import type { ThemeSchema } from '@treeride/schemas'
 import type { FC } from 'react'
 
 interface ThemeItemProps {

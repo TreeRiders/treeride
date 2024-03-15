@@ -27,6 +27,7 @@
     "@electron-toolkit/preload": "^3.0.0",
     "@electron-toolkit/utils": "^3.0.0",
     "@tanstack/react-query": "^5.25.0",
+    "@treeride/schemas": "workspace:*",
     "@treeride/ui": "workspace:*",
     "interprocess": "^0.2.6",
     "lucide-react": "^0.350.0",
