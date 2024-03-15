@@ -8,13 +8,15 @@ const cli = meow(
  Usage
    $ cli
 
- Options
- --name  Your name
+ Commands
+  find        Find extensions
+  install     Install new extension
+  build       Build extension
+  uninstall   Uninstall extension
 
  Examples
-   $ cli --name=Jane
-   Hello, Jane
-`,
+   $ cli find --query=todo`,
+
  {
    importMeta: import.meta,
  },
