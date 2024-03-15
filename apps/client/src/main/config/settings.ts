@@ -1,13 +1,18 @@
 import { resolve } from 'node:path'
 import { existsSync, mkdirSync } from 'node:fs'
+import EventEmitter from 'node:events'
 import { type SettingsSchema, settingsSchema } from '@root/schemas'
 import { app } from 'electron'
 import { readConfigFile, saveConfigFile } from '@root/utils/schema'
 import { type InitError, getInitError } from '@root/config/errors'
 import objectPath from 'object-path-immutable'
 import type { ChangeSettingsPayload } from '@root/settings/types'
+import type TypedEventEmitter from 'typed-emitter'
 
-export class Settings {
+type SettingsEvents = {
+  'new-settings': (settings: SettingsSchema) => void
+}
+export class Settings extends (EventEmitter as new () => TypedEventEmitter<SettingsEvents>) {
   #settings: SettingsSchema
   #isSettingsFileExists: boolean
   #settingsPath: string
@@ -22,6 +27,7 @@ export class Settings {
   }
 
   constructor() {
+    super()
     this.#settings = settingsSchema.parse({})
     this.#isSettingsFileExists = false
     this.#settingsPath = resolve(app.getPath('home'), '.config', 'treeride', 'settings.yml')
@@ -56,6 +62,7 @@ export class Settings {
       this.#settings = settingsSchema.parse(objectPath.set(this.#settings, payload.path, payload.value))
       saveConfigFile(this.#settingsPath, settingsSchema, this.#settings)
       this.errors = []
+      this.emit('new-settings', this.#settings)
     }
     catch (error) {
       const initError: InitError = {

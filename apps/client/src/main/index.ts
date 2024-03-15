@@ -8,6 +8,7 @@ import { Settings } from './config/settings'
 import { Extensions } from './config/extensions'
 import { ipcMain } from './ipcs/ipcs'
 import { getConfigResult } from './config/result'
+import { registerHotkeys, unregisterHotkeys } from './hotkeys'
 
 app.whenReady().then(() => {
   const settings = new Settings()
@@ -62,4 +63,11 @@ app.whenReady().then(() => {
 
   createMainWindow()
   createTray()
+
+  registerHotkeys(settings.settings)
+
+  settings.on('new-settings', (newSettings) => {
+    unregisterHotkeys()
+    registerHotkeys(newSettings)
+  })
 })
