@@ -1,36 +1,47 @@
 import type { FC, PropsWithChildren } from 'react'
 import { useMemo } from 'react'
-import type { ReadConfigResult } from '@root/config/types'
 import type { ConfigContextValue } from '@entities/config'
-import { ConfigContext, changeSettings, useGetConfigQuery, useReloadConfigMutation } from '@entities/config'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { ConfigContext, changeSettings, getConfig, reloadConfig } from '@entities/config'
+import { settingsSchema } from '@root/schemas'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 type ConfigProviderProps = PropsWithChildren
 
 const ConfigProvider: FC<ConfigProviderProps> = ({ children }) => {
   const queryClient = useQueryClient()
 
-  const { data: config } = useGetConfigQuery()
-
-  const { mutate: reload } = useReloadConfigMutation()
+  const { data } = useQuery({
+    queryKey: ['config'],
+    queryFn: getConfig,
+  })
 
   const { mutate: change } = useMutation({
-    mutationKey: ['config'],
     mutationFn: changeSettings,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['config'] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['config'] })
+    },
+  })
+
+  const { mutate: reload } = useMutation({
+    mutationFn: reloadConfig,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['config'] })
+    },
   })
 
   const value = useMemo<ConfigContextValue>(() => ({
-    config: config as ReadConfigResult,
+    settings: data?.settings ?? settingsSchema.parse({}),
+    extensions: data?.extensions ?? [],
+    errors: data?.errors ?? [],
     reload,
     changeSettings: (path, value) => change({ path, value }),
-  }), [change, config, reload])
+  }), [change, data?.errors, data?.extensions, data?.settings, reload])
 
   return (
     <ConfigContext.Provider
       value={value}
     >
-      {!!config && children}
+      {!!data && children }
     </ConfigContext.Provider>
   )
 }

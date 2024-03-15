@@ -1,3 +1,4 @@
+import { useHotkeys } from '@shared/lib/hotkeys'
 import { pathKeys } from '@shared/lib/router'
 import { Button } from '@treeride/ui'
 import { ArrowLeftIcon } from 'lucide-react'
@@ -10,6 +11,8 @@ const GoBack: FC = () => {
   const { pathname } = useLocation()
 
   const handleGoBack = () => navigate(pathKeys.main())
+
+  useHotkeys(['esc', 'backspace'], handleGoBack)
 
   if (pathname === pathKeys.main()) {
     return null

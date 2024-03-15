@@ -15,6 +15,7 @@ const config = antfu(
         ],
       },
       overrides: {
+        'ts/consistent-type-definitions': 'off',
         'id-length': ['error', { min: 2, exceptions: ['i', 'j', 'k', 'x', 'y', 'z', '_'] }],
         'no-restricted-syntax': [
           'error',

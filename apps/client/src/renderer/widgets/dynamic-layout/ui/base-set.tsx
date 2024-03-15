@@ -10,7 +10,7 @@ import { FooterRightActions } from './footer-right-actions'
 import { HeaderActions } from './header-actions'
 
 export const DynamicLayoutBaseSet: FC = () => {
-  const { reload, config: { errors } } = useConfig()
+  const { errors, reload } = useConfig()
 
   return (
     <>
