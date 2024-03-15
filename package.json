@@ -8,7 +8,10 @@
   "keywords": [],
   "scripts": {
     "dev": "pnpm --filter @treeride/client run dev",
+    "dev:cli": "pnpm --filter @treeride/cli run dev",
+    "start:cli": "pnpm --filter @treeride/cli run start",
     "build:ui": "pnpm --filter @treeride/ui run build",
+    "build:cli": "pnpm --filter @treeride/cli run build",
     "test:unit": "pnpm --filter @treeride/client run test:unit",
     "test:unit:coverage": "pnpm --filter @treeride/client run test:unit:coverage",
     "lint": "eslint . --fix",

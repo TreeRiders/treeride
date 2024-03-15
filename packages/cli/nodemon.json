@@ -1,0 +1,9 @@
+{
+  "ignore": ["node_modules/", "dist/"],
+  "watch": ["src/"],
+  "exec": "pnpm build && node ./dist/cli.js",
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "ext": "js,json,ts,tsx"
+}
