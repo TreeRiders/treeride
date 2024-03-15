@@ -1,9 +1,7 @@
-import type { ElectronAPI } from '@electron-toolkit/preload'
-import type { CustomAPI } from './api'
+import type { exposeApiToGlobalWindow } from '../main/ipcs/ipcs'
 
 declare global {
   interface Window {
-    electron: ElectronAPI
-    api: CustomAPI
+    api: ReturnType<typeof exposeApiToGlobalWindow>['api']
   }
 }

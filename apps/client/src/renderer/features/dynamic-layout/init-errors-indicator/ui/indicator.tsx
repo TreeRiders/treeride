@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 const InitErrorsIndicator: FC = () => {
   const navigate = useNavigate()
 
-  const { config: { errors } } = useConfig()
+  const { errors } = useConfig()
 
   const handleGoToInit = () => navigate(pathKeys.init())
 

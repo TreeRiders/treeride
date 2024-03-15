@@ -1,12 +1,16 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
-import { getConfig, reloadConfig } from './actions'
+import type { GetConfigResult } from '@root/config/types'
+import type { ChangeSettingsPayload } from '@root/settings/types'
 
-export const useGetConfigQuery = () => useQuery({
-  queryKey: ['config'],
-  queryFn: getConfig,
-})
+export const getConfig = async (): Promise<GetConfigResult> => {
+  const result = await window.api.invoke.getConfig()
+  return result
+}
 
-export const useReloadConfigMutation = () => useMutation({
-  mutationKey: ['config'],
-  mutationFn: reloadConfig,
-})
+export const changeSettings = async (payload: ChangeSettingsPayload) => {
+  const result = await window.api.invoke.changeSettings(payload)
+  return result
+}
+
+export const reloadConfig = async () => {
+  await window.api.invoke.reloadConfig()
+}
