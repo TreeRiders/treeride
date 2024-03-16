@@ -1,8 +1,29 @@
-import type { GetConfigResult } from '@root/config/types'
+import type { InitError } from '@root/config/errors'
 import type { ChangeSettingsPayload } from '@root/settings/types'
+import type { ExtensionSchema, SettingsSchema, ThemeSchema } from '@treeride/schemas/schemas'
 
-export const getConfig = async (): Promise<GetConfigResult> => {
-  const result = await window.api.invoke.getConfig()
+export const getSettings = async (): Promise<SettingsSchema> => {
+  const result = await window.api.invoke.getSettings()
+  return result
+}
+
+export const getExtensions = async (): Promise<ExtensionSchema[]> => {
+  const result = await window.api.invoke.getExtensions()
+  return result
+}
+
+export const getThemes = async (): Promise<ThemeSchema[]> => {
+  const result = await window.api.invoke.getThemes()
+  return result
+}
+
+export const getInitErrors = async (): Promise<InitError[]> => {
+  const result = await window.api.invoke.getInitErrors()
+  return result
+}
+
+export const getIsFirstRun = async (): Promise<boolean> => {
+  const result = await window.api.invoke.getIsFirstRun()
   return result
 }
 

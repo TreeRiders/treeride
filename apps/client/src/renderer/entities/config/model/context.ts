@@ -1,13 +1,15 @@
 import type { InitError } from '@root/config/errors'
-import type { Extension } from '@root/extensions/types'
-import type { SettingsSchema } from '@root/schemas'
+import type { ChangeSettingsPayload } from '@root/settings/types'
+import type { ExtensionSchema, SettingsSchema, ThemeSchema } from '@treeride/schemas/schemas'
+
 import { createContext, useContext } from 'react'
 
 export interface ConfigContextValue {
   settings: SettingsSchema
-  extensions: Extension[]
+  extensions: ExtensionSchema[]
+  themes: ThemeSchema[]
   errors: InitError[]
-  changeSettings: (path: string, value: unknown) => void
+  changeSettings: (payload: ChangeSettingsPayload) => void
   reload: () => void
 }
 

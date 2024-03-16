@@ -1,6 +1,5 @@
 import { useCallback, useMemo } from 'react'
 import type { FC, PropsWithChildren } from 'react'
-import type { ThemeSchema } from '@treeride/schemas'
 import { useConfig } from '@entities/config'
 import type { ThemeContextValue } from '@entities/theme'
 import { ThemeContext, defaultDarkTheme, defaultLightTheme } from '@entities/theme'
@@ -8,21 +7,15 @@ import { ThemeContext, defaultDarkTheme, defaultLightTheme } from '@entities/the
 type ThemeProviderProps = PropsWithChildren
 
 const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
-  const { settings, extensions } = useConfig()
+  const { settings, themes } = useConfig()
 
   const darkThemes = useMemo(() => {
-    return extensions.reduce<ThemeSchema[]>((acc, extension) => {
-      const themes = extension.themes.filter(theme => theme.appearance === 'dark')
-      return [...acc, ...themes]
-    }, [])
-  }, [extensions])
+    return themes.filter(theme => theme.appearance === 'dark')
+  }, [themes])
 
   const lightThemes = useMemo(() => {
-    return extensions.reduce<ThemeSchema[]>((acc, extension) => {
-      const themes = extension.themes.filter(theme => theme.appearance === 'light')
-      return [...acc, ...themes]
-    }, [])
-  }, [extensions])
+    return themes.filter(theme => theme.appearance === 'light')
+  }, [themes])
 
   const currentDarkTheme = useMemo(() => {
     return darkThemes.find(theme => theme.name === settings.appearance.darkTheme) ?? defaultDarkTheme

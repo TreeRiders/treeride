@@ -1,4 +1,4 @@
-import type { ThemeSchema } from '@treeride/schemas'
+import type { ThemeSchema } from '@treeride/schemas/schemas'
 
 export const defaultLightTheme: ThemeSchema = {
   title: 'Default Light',

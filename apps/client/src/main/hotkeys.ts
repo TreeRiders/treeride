@@ -1,4 +1,4 @@
-import type { SettingsSchema } from '@root/schemas'
+import type { SettingsSchema } from '@treeride/schemas/schemas'
 import { BrowserWindow, globalShortcut } from 'electron'
 
 export const registerHotkeys = (settings: SettingsSchema) => {

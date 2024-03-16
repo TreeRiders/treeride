@@ -1,0 +1,18 @@
+---
+name: translator
+title: Translator
+version: 1.0.0
+author: TreeRide
+commands:
+  - name: gpt
+    title: GPT
+    description: Supercharged by AI
+    mode: view
+  - name: premium
+    title: Premium
+    description: Buy premium today!
+    mode: view
+  - name: translate
+    title: Translate
+    description: Translate everything
+    mode: view

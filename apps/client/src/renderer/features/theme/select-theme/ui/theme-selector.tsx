@@ -50,7 +50,10 @@ const ThemeSelector: FC<ThemeSelectorProps> = ({ appearance }) => {
                 <ThemeItem
                   isSelected={theme.name === currentTheme.name}
                   theme={theme}
-                  onClick={() => changeSettings(`appearance.${themeKey}`, theme.name)}
+                  onClick={() => changeSettings({
+                    path: `appearance.${themeKey}`,
+                    value: theme.name,
+                  })}
                 />
               </CarouselItem>
             ))}

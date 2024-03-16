@@ -2,7 +2,8 @@ import { defineConfig } from 'tsup'
 
 const config = defineConfig({
   entry: [
-    'src/index.ts',
+    'src/schemas/index.ts',
+    'src/utils/index.ts',
   ],
   shims: true,
 })

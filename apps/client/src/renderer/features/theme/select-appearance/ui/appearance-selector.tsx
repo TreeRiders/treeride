@@ -19,7 +19,10 @@ const AppearanceSelector: FC = () => {
       </div>
       <Select
         value={useSystemAppearance ? 'system' : appearance}
-        onValueChange={value => changeSettings('appearance.appearance', value)}
+        onValueChange={value => changeSettings({
+          path: 'appearance.appearance',
+          value,
+        })}
       >
         <SelectTrigger
           className="w-[200px]"

@@ -1,6 +1,6 @@
 import { useConfig } from '@entities/config'
 import { Search } from '@features/dynamic-layout/command-search'
-import type { CommandSchema } from '@treeride/schemas'
+import type { CommandSchema } from '@treeride/schemas/schemas'
 import { pathKeys } from '@shared/lib/router'
 import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList } from '@treeride/ui'
 import { DynamicLayoutBaseSet, HeaderSearch } from '@widgets/dynamic-layout'

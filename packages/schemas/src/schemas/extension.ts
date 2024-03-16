@@ -1,12 +1,12 @@
 import { z } from 'zod'
+import { commandSchema } from '.'
 
-const extensionSchema = z.object({
+export const extensionSchema = z.object({
   name: z.string(),
   title: z.string(),
   version: z.string(),
   author: z.string(),
+  commands: commandSchema.array(),
 })
 
-type ExtensionSchema = z.infer<typeof extensionSchema>
-
-export { extensionSchema, type ExtensionSchema }
+export type ExtensionSchema = z.infer<typeof extensionSchema>

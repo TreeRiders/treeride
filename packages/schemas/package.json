@@ -4,13 +4,17 @@
   "version": "0.0.0",
   "license": "MIT",
   "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+    "./schemas": {
+      "types": "./dist/schemas/index.d.ts",
+      "import": "./dist/schemas/index.js",
+      "require": "./dist/schemas/index.cjs"
+    },
+    "./utils": {
+      "types": "./dist/utils/index.d.ts",
+      "import": "./dist/utils/index.js",
+      "require": "./dist/utils/index.cjs"
     }
   },
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "files": [
     "bin",
     "dist"
@@ -19,6 +23,7 @@
     "build": "tsup --format esm,cjs --clean --dts"
   },
   "dependencies": {
+    "yaml": "^2.4.1",
     "zod": "^3.22.4"
   },
   "devDependencies": {

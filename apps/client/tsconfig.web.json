@@ -4,6 +4,7 @@
     "composite": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
+    "moduleResolution": "bundler",
     "paths": {
       "@app/*": ["src/renderer/app/*"],
       "@entities/*": ["src/renderer/entities/*"],

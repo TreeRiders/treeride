@@ -1,0 +1,17 @@
+{
+  "name": "@treeride/example-extension",
+  "type": "module",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "build": "pnpm @treeride/cli build"
+  },
+  "dependencies": {
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "@treeride/cli": "workspace:*",
+    "tsup": "^8.0.2",
+    "typescript": "^5.0.3"
+  }
+}

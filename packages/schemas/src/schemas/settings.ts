@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-const settingsSchema = z
+export const settingsSchema = z
   .object({
     appearance: z
       .object({
@@ -23,6 +23,4 @@ const settingsSchema = z
   })
   .default({})
 
-type SettingsSchema = z.infer<typeof settingsSchema>
-
-export { settingsSchema, type SettingsSchema }
+export type SettingsSchema = z.infer<typeof settingsSchema>

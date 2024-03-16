@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-const themeSchema = z.object({
+export const themeSchema = z.object({
   name: z.string(),
   title: z.string(),
   appearance: z.enum(['light', 'dark']),
@@ -15,6 +15,4 @@ const themeSchema = z.object({
   }),
 })
 
-type ThemeSchema = z.infer<typeof themeSchema>
-
-export { themeSchema, type ThemeSchema }
+export type ThemeSchema = z.infer<typeof themeSchema>

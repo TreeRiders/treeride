@@ -3,21 +3,33 @@
   "type": "module",
   "version": "0.0.0",
   "license": "MIT",
-  "bin": "dist/cli.js",
+  "bin": {
+    "treeride": "dist/cli.js"
+  },
   "files": [
     "dist"
   ],
   "scripts": {
     "build": "tsup --format esm --clean --dts",
     "start": "node dist/cli.js",
-    "dev": "nodemon --config nodemon.json -I src/cli.tsx"
+    "dev": "nodemon --config nodemon.json -I src/cli.tsx",
+    "build:auto": "tsup --format esm --clean --dts --watch"
   },
   "dependencies": {
+    "@inkjs/ui": "^1.0.0",
+    "@treeride/schemas": "workspace:*",
+    "esbuild": "^0.20.2",
+    "figlet": "^1.7.0",
+    "fs-extra": "^11.2.0",
     "ink": "^4.1.0",
+    "ink-ascii": "^0.0.4",
     "meow": "^11.0.0",
-    "react": "^18.2.0"
+    "react": "^18.2.0",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "@types/figlet": "^1.5.8",
+    "@types/fs-extra": "^11.0.4",
     "@types/ink": "^2.0.3",
     "@types/react": "^18.0.32",
     "chalk": "^5.2.0",

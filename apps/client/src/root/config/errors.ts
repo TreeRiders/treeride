@@ -1,53 +1,19 @@
-interface InitSettingsError {
-  type: 'initSettingsError'
+interface BaseInitError {
   message: string
 }
 
-interface InitExtensionError {
-  type: 'initExtensionError'
+export interface ExtensionInitError extends BaseInitError {
+  type: 'extension'
   extension: string
-  message: string
 }
 
-interface InitExtensionPartError {
-  type: 'initExtensionPartError'
-  extension: string
-  part: string
-  message: string
+export interface ThemeInitError extends BaseInitError {
+  type: 'theme'
+  theme: string
 }
 
-interface CreateInitErrorPayload {
-  extension?: string
-  part?: string
-  message: string
+export interface SettingsInitError extends BaseInitError {
+  type: 'settings'
 }
 
-type InitError = InitSettingsError | InitExtensionError | InitExtensionPartError
-
-const getInitError = (payload: CreateInitErrorPayload): InitError => {
-  const { message, extension, part } = payload
-
-  if (!extension) {
-    return {
-      message,
-      type: 'initSettingsError',
-    } as InitSettingsError
-  }
-
-  if (!part) {
-    return {
-      extension,
-      message,
-      type: 'initExtensionError',
-    } as InitExtensionError
-  }
-
-  return {
-    extension,
-    message,
-    part,
-    type: 'initExtensionPartError',
-  } as InitExtensionPartError
-}
-
-export { getInitError, type InitError }
+export type InitError = ExtensionInitError | ThemeInitError | SettingsInitError

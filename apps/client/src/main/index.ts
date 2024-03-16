@@ -4,18 +4,23 @@ import { BrowserWindow, app } from 'electron'
 import { windowSizes } from '@root/window'
 import { createWindow as createMainWindow } from './windows/main'
 import { createTray } from './tray'
-import { Settings } from './config/settings'
-import { Extensions } from './config/extensions'
+
 import { ipcMain } from './ipcs/ipcs'
-import { getConfigResult } from './config/result'
 import { registerHotkeys, unregisterHotkeys } from './hotkeys'
+import { changeSettings, readSettings } from './config/settings'
+import { preflightConfig } from './config/config'
+import { readThemes } from './config/themes'
+import { readExtensions } from './config/extensions'
 
 app.whenReady().then(() => {
-  const settings = new Settings()
-  const extensions = new Extensions()
+  const preflightResult = preflightConfig()
+  let settings = readSettings()
+  let themes = readThemes()
+  let extensions = readExtensions()
 
-  settings.read()
-  extensions.read()
+  const settingsErrors = [...settings.errors]
+  const themesErrors = [...themes.errors]
+  const extensionsErrors = [...extensions.errors]
 
   electronApp.setAppUserModelId('com.treeride.app')
 
@@ -35,18 +40,36 @@ app.whenReady().then(() => {
     }
   })
 
-  ipcMain.handle.getConfig(async () => {
-    return getConfigResult(settings, extensions)
+  ipcMain.handle.getSettings(async () => {
+    unregisterHotkeys()
+    registerHotkeys(settings.settings)
+    return settings.settings
   })
 
+  ipcMain.handle.getExtensions(async () => extensions.extensions)
+
+  ipcMain.handle.getThemes(async () => themes.themes)
+
+  ipcMain.handle.getInitErrors(async () => [
+    ...settingsErrors,
+    ...themesErrors,
+    ...extensionsErrors,
+  ])
+
+  ipcMain.handle.getIsFirstRun(async () => preflightResult.isFirstRun)
+
   ipcMain.handle.reloadConfig(async () => {
-    settings.read()
-    extensions.read()
+    settings = readSettings()
+    extensions = readExtensions()
+    themes = readThemes()
   })
 
   ipcMain.handle.changeSettings(async (_, { data }) => {
-    settings.write(data)
-    return getConfigResult(settings, extensions)
+    const result = changeSettings(data)
+    settings = {
+      settings: result.settings,
+      errors: result.error ? [result.error] : [],
+    }
   })
 
   ipcMain.handle.exitApp(async () => {
@@ -65,9 +88,4 @@ app.whenReady().then(() => {
   createTray()
 
   registerHotkeys(settings.settings)
-
-  settings.on('new-settings', (newSettings) => {
-    unregisterHotkeys()
-    registerHotkeys(newSettings)
-  })
 })
