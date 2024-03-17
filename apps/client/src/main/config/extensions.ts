@@ -1,8 +1,8 @@
-import { readdirSync } from 'node:fs'
+import { lstatSync, readdirSync } from 'node:fs'
 import { type ExtensionSchema, extensionSchema } from '@treeride/schemas/schemas'
 import type { ExtensionInitError } from '@root/config/errors'
 import { readConfigFile } from '@treeride/schemas/utils'
-import { resolveExtensionConfig, resolveExtensions } from '@treeride/resolver'
+import { resolveExtension, resolveExtensionConfig, resolveExtensions } from '@treeride/resolver'
 import { logger } from '../logger'
 
 interface ReadExtensionsResult {
@@ -15,7 +15,7 @@ export const readExtensions = (): ReadExtensionsResult => {
   const errors: ExtensionInitError[] = []
   const extensions: ExtensionSchema[] = []
 
-  readdirSync(extensionsPath).forEach((extensionFolder) => {
+  readdirSync(extensionsPath).filter(element => lstatSync(resolveExtension(element)).isDirectory()).forEach((extensionFolder) => {
     const extensionPath = resolveExtensionConfig(extensionFolder)
 
     try {
