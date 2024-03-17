@@ -5,8 +5,8 @@ import esbuild from 'esbuild'
 import type { ExtensionSchema } from '@treeride/schemas/schemas'
 import { extensionSchema } from '@treeride/schemas/schemas'
 import fsExtra from 'fs-extra/esm'
-import { getTreerideConfigPath } from 'src/utils/paths'
 import { readConfigFile } from '@treeride/schemas/utils'
+import { resolveExtension } from '@treeride/resolver'
 
 const getExtensionManifestLocation = () => resolve(cwd(), 'extension.yml')
 
@@ -35,6 +35,7 @@ export const getCommandsBuilders = (extension: ExtensionSchema) => {
         ],
         bundle: true,
         platform: 'node',
+        format: 'cjs',
         outfile: out,
         external: ['react'],
         jsx: 'transform',
@@ -57,8 +58,7 @@ export const postBuild = (extension: ExtensionSchema) => {
   fsExtra.copySync(dist, newDist, { overwrite: true })
   fsExtra.copySync(getExtensionManifestLocation(), resolve(newDist, 'extension.yml'), { overwrite: true })
 
-  const extensionsPath = resolve(getTreerideConfigPath(), 'extensions')
-  const newExtensionPath = resolve(extensionsPath, extension.name)
+  const newExtensionPath = resolveExtension(extension.name)
   fsExtra.moveSync(newDist, newExtensionPath, { overwrite: true })
   rmSync(dist, { recursive: true, force: true })
 }

@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@inkjs/ui": "^1.0.0",
+    "@treeride/resolver": "workspace:*",
     "@treeride/schemas": "workspace:*",
     "esbuild": "^0.20.2",
     "figlet": "^1.7.0",

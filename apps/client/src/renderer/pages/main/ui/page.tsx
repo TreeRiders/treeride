@@ -1,25 +1,19 @@
 import { useConfig } from '@entities/config'
+import { useRunExtension } from '@entities/extension'
 import { Search } from '@features/dynamic-layout/command-search'
-import type { CommandSchema } from '@treeride/schemas/schemas'
 import { pathKeys } from '@shared/lib/router'
 import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList } from '@treeride/ui'
 import { DynamicLayoutBaseSet, HeaderSearch } from '@widgets/dynamic-layout'
-import { useMemo } from 'react'
+import { Fragment } from 'react'
 import type { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const MainPage: FC = () => {
   const { extensions } = useConfig()
 
-  const navigate = useNavigate()
+  const { run } = useRunExtension()
 
-  const items = useMemo((): CommandSchema[] => {
-    const commands: CommandSchema[] = []
-    extensions.forEach((extension) => {
-      commands.push(...extension.commands)
-    })
-    return commands
-  }, [extensions])
+  const navigate = useNavigate()
 
   const handleOpenSettings = () => {
     navigate(pathKeys.settings())
@@ -35,15 +29,29 @@ const MainPage: FC = () => {
         <CommandGroup
           heading="Commands"
         >
-          {items.map((item) => {
+          {extensions.map((extension) => {
             return (
-              <CommandItem
-                className="flex items-center justify-between"
-                key={item.name}
+              <Fragment
+                key={extension.name}
               >
-                <span>{item.title}</span>
-                <span>Command</span>
-              </CommandItem>
+                {extension.commands.map((command) => {
+                  return (
+                    <CommandItem
+                      className="flex items-center justify-between"
+                      key={command.name}
+                      onSelect={() => {
+                        run({
+                          extensionName: extension.name,
+                          commandName: command.name,
+                        })
+                      }}
+                    >
+                      <span>{command.title}</span>
+                      <span>Command</span>
+                    </CommandItem>
+                  )
+                })}
+              </Fragment>
             )
           })}
         </CommandGroup>

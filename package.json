@@ -18,7 +18,9 @@
     "lint": "eslint . --fix",
     "typecheck": "pnpm --filter @treeride/client run typecheck",
     "prepare": "husky",
-    "ui:add": "pnpm --filter @treeride/ui add-component"
+    "ui:add": "pnpm --filter @treeride/ui add-component",
+    "copy-render-child": "node ./scripts/copy-render-child.cjs",
+    "build:tools": "pnpm --filter @treeride/resolver run build && pnpm --filter @treeride/schemas run build && pnpm --filter @treeride/cli run build && pnpm --filter @treeride/render-child run build && pnpm run copy-render-child"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.6.4",

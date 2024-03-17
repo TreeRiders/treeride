@@ -1,9 +1,9 @@
-import { resolve } from 'node:path'
 import { readdirSync } from 'node:fs'
 import { type ThemeSchema, themeSchema } from '@treeride/schemas/schemas'
-import { app } from 'electron'
 import type { ThemeInitError } from '@root/config/errors'
 import { readConfigFile } from '@treeride/schemas/utils'
+import { resolveTheme, resolveThemes } from '@treeride/resolver'
+import { logger } from '../logger'
 
 interface ReadThemesResult {
   themes: ThemeSchema[]
@@ -11,12 +11,12 @@ interface ReadThemesResult {
 }
 
 export const readThemes = (): ReadThemesResult => {
-  const themesPath = resolve(app.getPath('home'), '.config', 'treeride', 'themes')
+  const themesPath = resolveThemes()
   const errors: ThemeInitError[] = []
   const themes: ThemeSchema[] = []
 
   readdirSync(themesPath).forEach((themeFile) => {
-    const themePath = resolve(themesPath, themeFile)
+    const themePath = resolveTheme(themeFile)
 
     try {
       const theme = readConfigFile(themePath, themeSchema)
@@ -30,6 +30,8 @@ export const readThemes = (): ReadThemesResult => {
       })
     }
   })
+
+  logger.debug('[Themes]: Read themes complete')
 
   return {
     themes,

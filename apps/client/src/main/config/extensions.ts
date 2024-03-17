@@ -1,9 +1,9 @@
-import { resolve } from 'node:path'
 import { readdirSync } from 'node:fs'
 import { type ExtensionSchema, extensionSchema } from '@treeride/schemas/schemas'
-import { app } from 'electron'
 import type { ExtensionInitError } from '@root/config/errors'
 import { readConfigFile } from '@treeride/schemas/utils'
+import { resolveExtensionConfig, resolveExtensions } from '@treeride/resolver'
+import { logger } from '../logger'
 
 interface ReadExtensionsResult {
   extensions: ExtensionSchema[]
@@ -11,12 +11,12 @@ interface ReadExtensionsResult {
 }
 
 export const readExtensions = (): ReadExtensionsResult => {
-  const extensionsPath = resolve(app.getPath('home'), '.config', 'treeride', 'extensions')
+  const extensionsPath = resolveExtensions()
   const errors: ExtensionInitError[] = []
   const extensions: ExtensionSchema[] = []
 
   readdirSync(extensionsPath).forEach((extensionFolder) => {
-    const extensionPath = resolve(extensionsPath, extensionFolder, 'extension.yml')
+    const extensionPath = resolveExtensionConfig(extensionFolder)
 
     try {
       const extension = readConfigFile(extensionPath, extensionSchema)
@@ -30,6 +30,8 @@ export const readExtensions = (): ReadExtensionsResult => {
       })
     }
   })
+
+  logger.debug('[Extensions]: Read extensions complete')
 
   return {
     extensions,

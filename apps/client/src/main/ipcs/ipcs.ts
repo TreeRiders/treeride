@@ -1,4 +1,5 @@
 import type { InitError } from '@root/config/errors'
+import type { RunExtensionPayload } from '@root/extensions'
 import type { ChangeSettingsPayload } from '@root/settings/types'
 import type { windowSizes } from '@root/window'
 import type { ExtensionSchema, SettingsSchema, ThemeSchema } from '@treeride/schemas/schemas'
@@ -17,6 +18,7 @@ export const { exposeApiToGlobalWindow, ipcMain, ipcRenderer }
       changeSettings: async (_, _data: ChangeSettingsPayload): Promise<void> => {},
       changeWindowSize: async (_, _data: keyof typeof windowSizes) => {},
       reloadConfig: async () => {},
+      runExtension: async (_, _data: RunExtensionPayload) => {},
     },
     renderer: {},
   })
